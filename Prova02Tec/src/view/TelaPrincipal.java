@@ -33,7 +33,7 @@ public class TelaPrincipal extends JFrame {
 //		this.setForeground(getBackground());
 		this.setResizable(false);
 		mov = new Interacoes(this);
-		alunos = 2;
+		alunos = 5;
 		bugs = 5;
 		tamanho = 8;
 		botoes = new ArrayList<BotaoDoTabuleiro>();
