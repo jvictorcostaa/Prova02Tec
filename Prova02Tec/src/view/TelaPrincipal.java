@@ -81,25 +81,25 @@ public class TelaPrincipal extends JFrame {
 			}	
 		}
 	}
-//		Random numAleatorio = new Random();
-//		ArrayList<Integer> listaNumAleatorios = new ArrayList<>();
-//		int num;
-//		while(listaNumAleatorios.size()<(alunos+bugs)) {
-//			do {
-//				num = numAleatorio.nextInt(tamanho*tamanho);
-//			} while(listaNumAleatorios.contains(num) || tempNum == num);
-//			listaNumAleatorios.add(num);
-//		}
-//		for (int i = 0;i<listaNumAleatorios.size();i++) {
-//			if(i<bugs) {
-//				botoes.get(listaNumAleatorios.get(i)).setTrueTemBug();
-//			}else
-//				botoes.get(listaNumAleatorios.get(i)).setTrueTemAluno();
-//		}
-//		
-		botoes.get(9).setTrueTemAluno();
-		botoes.get(18).setTrueTemAluno();
-		botoes.get(8).setTrueTemBug();
+		Random numAleatorio = new Random();
+		ArrayList<Integer> listaNumAleatorios = new ArrayList<>();
+		int num;
+		while(listaNumAleatorios.size()<(alunos+bugs)) {
+			do {
+				num = numAleatorio.nextInt(tamanho*tamanho);
+			} while(listaNumAleatorios.contains(num) || tempNum == num);
+			listaNumAleatorios.add(num);
+		}
+		for (int i = 0;i<listaNumAleatorios.size();i++) {
+			if(i<bugs) {
+				botoes.get(listaNumAleatorios.get(i)).setTrueTemBug();
+			}else
+				botoes.get(listaNumAleatorios.get(i)).setTrueTemAluno();
+		}
+		
+//		botoes.get(9).setTrueTemAluno();
+//		botoes.get(18).setTrueTemAluno();
+//		botoes.get(8).setTrueTemBug();
 		for (BotaoDoTabuleiro botaoDoTabuleiro : botoes) {
 			tab.add(botaoDoTabuleiro);
 		}
