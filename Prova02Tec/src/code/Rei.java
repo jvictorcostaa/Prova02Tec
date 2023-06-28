@@ -7,8 +7,4 @@ public class Rei extends RoboInicial {
 		this.limMovimento = 4;
 	}
 
-	public RoboInicial andar() {
-		return null;
-	}
-
 }

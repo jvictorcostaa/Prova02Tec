@@ -5,29 +5,34 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Random;
-
+import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
-import code.Movimentaçao;
+import code.Interacoes;
 import code.RoboInicial;
 
 import javax.swing.*;
 
 public class TelaPrincipal extends JFrame {
-	protected Movimentaçao mov;
+	protected Interacoes mov;
 	protected JPanel tabuleiro;
 	private JPanel telaopcoes;
 	private int tamanho;
 	private ArrayList<BotaoDoTabuleiro> botoes;
 	private int alunos;
 	private int bugs;
+	protected int rodadas;
+	private String nome;
 	
 	TelaPrincipal(){
-		this.setSize(800,700);
+		digitarNome();
+		this.setTitle("RESGATE DOS ALUNOS NA ILHA DE JAVA");
+		this.setSize(700,700);
 //		this.setForeground(getBackground());
 		this.setResizable(false);
-		mov = new Movimentaçao();
+		mov = new Interacoes(this);
 		alunos = 2;
 		bugs = 5;
 		tamanho = 8;
@@ -39,11 +44,11 @@ public class TelaPrincipal extends JFrame {
 		
 		telaopcoes = new TelaJogabilidade(this);
 		JPanel direita = new JPanel();
-		direita.setBackground(Color.orange);
+		direita.setBackground(new Color(158, 77, 36));
 		direita.add(telaopcoes,BorderLayout.EAST);
 		
 		JPanel teste = new JPanel();
-		teste.setBackground(Color.orange);
+		teste.setBackground(new Color(158, 77, 36));
 		JPanel relatorio = new TelaBotoes(this);
 		teste.add(relatorio);
 		this.add(teste,BorderLayout.NORTH);
@@ -57,6 +62,7 @@ public class TelaPrincipal extends JFrame {
 	public JPanel criarTabuleiro() {
 		JPanel tab = new JPanel();
 		tab.setLayout(new GridLayout(tamanho,tamanho,3,3));
+		tab.setBorder(new LineBorder(Color.black));
 		int tempNum = 0;
 		for(int y = 0;y<tamanho;y++) {
 			for(int x = 0;x<tamanho;x++) {
@@ -92,6 +98,8 @@ public class TelaPrincipal extends JFrame {
 //		}
 //		
 		botoes.get(9).setTrueTemAluno();
+		botoes.get(18).setTrueTemAluno();
+		botoes.get(8).setTrueTemBug();
 		for (BotaoDoTabuleiro botaoDoTabuleiro : botoes) {
 			tab.add(botaoDoTabuleiro);
 		}
@@ -117,8 +125,8 @@ public class TelaPrincipal extends JFrame {
 	}
 	public void mudarCoresDiagonal(RoboInicial robo) {
 		resetarTab();
-		int limAndarY = robo.getPosY()+robo.getLimMovimento();
-		int limVoltarY = robo.getPosY()-robo.getLimMovimento();
+//		int limAndarY = robo.getPosY()+robo.getLimMovimento();
+//		int limVoltarY = robo.getPosY()-robo.getLimMovimento();
 		int limAndarX = robo.getPosX()+robo.getLimMovimento();
 		int limVoltarX = robo.getPosX()-robo.getLimMovimento();
 		for (BotaoDoTabuleiro botaoDoTabuleiro : botoes) {
@@ -131,16 +139,7 @@ public class TelaPrincipal extends JFrame {
 		}
 		
 		
-	}
-	public void mudarCoresRei(RoboInicial robo) {
-		for (BotaoDoTabuleiro botaoDoTabuleiro : botoes) {
-			
-		}
-		
-	}	
-	public void confirmarJogada() {
-		tabuleiro.setVisible(false);
-	}
+	}		
 	public int verificarPontos(int roboX,int roboY) {
 		for (BotaoDoTabuleiro botoesDoTabuleiro : botoes) {
 				if((botoesDoTabuleiro.getX() == roboX && botoesDoTabuleiro.getY() == roboY)){
@@ -163,17 +162,26 @@ public class TelaPrincipal extends JFrame {
 		return true;
 	}
 	
+	protected void visiTelaOpcoes(boolean estado){
+		telaopcoes.setVisible(estado);
+	}
+	protected void visiTabuleiro(boolean estado){
+		tabuleiro.setVisible(estado);
+	}
+	
 	public void resetarTab() {
 		for (BotaoDoTabuleiro botaoDoTabuleiro : botoes) {
-			if(botaoDoTabuleiro.isTinhaRobo() && botaoDoTabuleiro.isTemAluno()) {
+		if(botaoDoTabuleiro.isTinhaRobo() && botaoDoTabuleiro.isTemAluno()) {
 				botaoDoTabuleiro.setBackground(Color.green);
-				}else if(botaoDoTabuleiro.isTinhaRobo()) {
-					botaoDoTabuleiro.setBackground(Color.gray);
-					}else if(botaoDoTabuleiro.getY()%2 == 0) {
-						if(botaoDoTabuleiro.getX()%2 == 0) {
+				}else if(botaoDoTabuleiro.isTinhaRobo() && botaoDoTabuleiro.isTemBug()) {
+					botaoDoTabuleiro.setBackground(Color.red);
+					}else if(botaoDoTabuleiro.isTinhaRobo()) {
+						botaoDoTabuleiro.setBackground(Color.gray);
+						}else if(botaoDoTabuleiro.getY()%2 == 0) {
+							if(botaoDoTabuleiro.getX()%2 == 0) {
 							botaoDoTabuleiro.setBackground(Color.white);
-							}else {
-								botaoDoTabuleiro.setBackground(Color.black);
+								}else {
+									botaoDoTabuleiro.setBackground(Color.black);
 				}
 					}else {
 						if(botaoDoTabuleiro.getX()%2 == 0) {
@@ -183,7 +191,31 @@ public class TelaPrincipal extends JFrame {
 					}
 				}
 				botaoDoTabuleiro.setEnabled(true);
-				tabuleiro.setVisible(true);
 		}
+		visiTabuleiro(true);
 	}
-}
+	public void digitarNome() {
+		    this.nome = JOptionPane.showInputDialog("Digite o nome do jogador:");
+		  }
+	public int passarCelula() {
+		int celulavazia = 0;
+		for (BotaoDoTabuleiro botaoDoTabuleiro : botoes) {
+			if(!(botaoDoTabuleiro.isTinhaRobo()))
+				celulavazia++;
+		}
+		return celulavazia;
+		}
+	
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public int getRodadas() {
+		return rodadas;
+	}
+	public void setRodadas(int rodadas) {
+		this.rodadas = rodadas;
+	}
+	}

@@ -6,10 +6,4 @@ public class Cavalo extends RoboInicial {
 		super(id, nome);
 		this.limMovimento = 2;
 	}
-
-	public RoboInicial andar() {
-		
-		return null;
-	}
-
 }

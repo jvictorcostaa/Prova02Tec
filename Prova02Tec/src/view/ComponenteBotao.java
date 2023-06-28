@@ -6,13 +6,11 @@ public class ComponenteBotao {
 	private boolean podePontuar;
 	
 	public ComponenteBotao() {
-		this.tipo = null;
 		this.pontos = 0;
 		this.podePontuar = true;
 	}
 	
 	public ComponenteBotao(String tipo, int pontos) {
-		this.tipo=tipo.toLowerCase();
 		this.pontos=pontos;
 		podePontuar = true;
 	}
@@ -31,18 +29,6 @@ public class ComponenteBotao {
 	
 	public boolean componenteVazia() {
 		return tipo == null;
-	}
-	
-	public String imprimirComponente() {
-		if(this.tipo=="a") {
-			return "@";	
-		}
-		
-		if(this.tipo=="b") {
-			return "#";	
-		}
-		
-		return " ";
 	}
 	
 	public boolean checarComponenteAluno() {

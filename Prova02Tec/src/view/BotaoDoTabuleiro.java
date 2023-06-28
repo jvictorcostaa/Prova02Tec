@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import code.Movimentaçao;
+import code.Interacoes;
 
 public class BotaoDoTabuleiro extends JButton {
 	private TelaPrincipal inicio;
@@ -83,7 +83,7 @@ public class BotaoDoTabuleiro extends JButton {
 
 		public void actionPerformed(ActionEvent e) {
 			inicio.mov.attPosicaoRobo(x, y, id,inicio.verificarPontos(x, y));
-			inicio.confirmarJogada();
+			inicio.visiTabuleiro(false);
 			setTinhaRobo(true);
 		}
 			

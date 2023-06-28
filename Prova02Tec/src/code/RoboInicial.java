@@ -4,12 +4,8 @@ import java.util.ArrayList;
 
 public abstract class RoboInicial {
 	private String nome;
-	protected ArrayList<Integer> coordenadaX;
-	protected ArrayList<Integer> coordenadaY;
 	private int id;
 	private int pontuaçao;
-	private char icone;
-//	protected Tabuleiro tabuleiroRobo;
 	protected int posX,posY;
 	protected int limMovimento;
 	private int aluFind;
@@ -18,17 +14,12 @@ public abstract class RoboInicial {
 	public RoboInicial(int id,String nome) {
 		this.id = id;
 		this.nome = nome;
-//		this.tabuleiroRobo = t1;
 		posX = 0;
 		posY = 0;
 		pontuaçao = 0;
-//		tabuleiroRobo.adicionarRobo(this);
-		coordenadaX = new ArrayList<Integer>();
-		coordenadaY = new ArrayList<Integer>();
 		aluFind = 0;
 		bugFind = 0;
 	}
-	public abstract RoboInicial andar();
 	
 	public String getNome() {
 		return nome;
@@ -71,4 +62,17 @@ public abstract class RoboInicial {
 			bugFind++;
 			
 	}
+	public int getAluFind() {
+		return aluFind;
+	}
+	public void setAluFind(int aluFind) {
+		this.aluFind = aluFind;
+	}
+	public int getBugFind() {
+		return bugFind;
+	}
+	public void setBugFind(int bugFind) {
+		this.bugFind = bugFind;
+	}
+	
 }

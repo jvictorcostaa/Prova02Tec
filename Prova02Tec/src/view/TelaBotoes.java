@@ -12,7 +12,7 @@ public class TelaBotoes extends JPanel {
 		criarTelaBotoes();
 	}
 	public void criarTelaBotoes() {
-		this.setBackground(Color.yellow);
+		this.setBackground(new Color(158, 77, 36));
 		Botao jogar = new Botao("Jogar",Color.cyan);
 		jogar.addActionListener(new acaojogar());
 		Botao relatorio = new Botao("Relatorio do Jogo",Color.cyan);
@@ -23,15 +23,14 @@ public class TelaBotoes extends JPanel {
 	private class acaojogar implements ActionListener {
 		
 		public void actionPerformed(ActionEvent e) {
-			telainicial.mudarVisible();
-			repaint();
+			telainicial.visiTelaOpcoes(true);
 		}
 		
 	}
 	private class acaorelatorio implements ActionListener {
-		
 		public void actionPerformed(ActionEvent e) {
-//		System.out.println("deu bom");
+			telainicial.mov.instanciarRelatorio();
+			
 		}
 		
 	}
